@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const boton = document.getElementById("buscarBtn");
     const resultado = document.getElementById("resultado");
 
+    resultado.style.display = "none";
+
     boton.addEventListener("click", () => {
         const nombre = input.value.trim().toLowerCase();
         buscarPokemon(nombre);
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}`);
             
             if (!respuesta.ok) {
-                throw new Error("Ups, este Pokémon no existe:(");
+                throw new Error("Ups, este Pokémon no existe :(");
             }
 
             const data = await respuesta.json();
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function mostrarPokemon(pokemon) {
+        resultado.style.display = "block"; 
         resultado.innerHTML = `
             <h2>${pokemon.name.toUpperCase()} (#${pokemon.id})</h2>
             <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
@@ -34,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function mostrarError(mensaje) {
+        resultado.style.display = "block"; 
         resultado.innerHTML = `<p style="color:red;">${mensaje}</p>`;
     }
 });
